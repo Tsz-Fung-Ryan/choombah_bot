@@ -2,7 +2,7 @@ package com.hoang.ryan.choombah_bot;
 
 import static org.junit.Assert.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class FloorTest {
 	Floor testFloor;

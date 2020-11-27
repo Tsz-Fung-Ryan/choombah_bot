@@ -4,7 +4,7 @@ package com.hoang.ryan.choombah_bot;
  * Hello world!
  *
  */
-public class App 
+public class ChoombahBotApplication 
 {
     public static void main( String[] args )
     {

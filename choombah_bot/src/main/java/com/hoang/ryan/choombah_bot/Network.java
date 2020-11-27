@@ -1,5 +1,5 @@
 package com.hoang.ryan.choombah_bot;
-import java.util.*;
+import java.util.Random;
 
 
 public class Network {
