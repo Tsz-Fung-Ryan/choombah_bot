@@ -1,11 +1,13 @@
 package com.hoang.ryan.choombah_bot;
-import java.util.*;
+import java.util.Random;
 
 
 public class Network {
-	String difficultyRating;
-	int totalFloors;
-	int totalBranches;
+	private String difficultyRating;
+	private int totalFloors;
+	private int totalBranches;
+	
+	private Floor [][] floors; //probably change this to a tree
 	
 	public Network(String difficultyRating) {
 		setDifficultyRating(difficultyRating);
