@@ -3,11 +3,22 @@ package com.hoang.ryan.choombah_bot;
 import static org.junit.Assert.*;
 
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import com.hoang.ryan.choombah_bot.components.Floor;
+
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class FloorTest {
-	Floor testFloor;
 	final String testResident = "imp";
 	final int testFloorNumber = 25;
+	
+	@Mock
+	private Floor testFloor;
 	
 	//Tests for blank constructor
 	@Test

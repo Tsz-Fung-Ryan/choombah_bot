@@ -1,8 +1,13 @@
-package com.hoang.ryan.choombah_bot;
+package com.hoang.ryan.choombah_bot.components;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Floor {
 	private String resident;
 	private int floorNumber;
+	private Floor nextFloor;
+	private Floor[] branches;
 	
 	public Floor() {
 		
@@ -27,5 +32,21 @@ public class Floor {
 
 	public void setFloorNumber(int floorNumber) {
 		this.floorNumber = floorNumber;
+	}
+
+	public Floor next() {
+		return nextFloor;
+	}
+
+	public void setNextFloor(Floor nextFloor) {
+		this.nextFloor = nextFloor;
+	}
+
+	public Floor[] getBranches() {
+		return branches;
+	}
+
+	public void setBranches(Floor[] branches) {
+		this.branches = branches;
 	}
 }

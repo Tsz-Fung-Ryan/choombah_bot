@@ -3,9 +3,18 @@ package com.hoang.ryan.choombah_bot;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import com.hoang.ryan.choombah_bot.components.Network;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class NetworkTest {
 	
+	@Mock
 	Network testNetwork;
 	final String testDifficultyRating = "basic";
 	final int testFloorCount = 18;
