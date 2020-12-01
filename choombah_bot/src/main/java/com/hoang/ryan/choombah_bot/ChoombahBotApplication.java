@@ -9,6 +9,6 @@ public class ChoombahBotApplication
 {
     public static void main( String[] args )
     {
-    	Network network = new Network("basic", 5, 0);
+    	Network network = new Network("basic", 18, 4);
     }
 }

@@ -53,11 +53,11 @@ public class Network {
 	//rolls 3d6 to obtain the number of floors in the network
 	private void rollFloorCount() {
 		Random d6 = new Random();
-		
+		int floors=0;
 		for (int roll = 0; roll < 3 ; roll++) {
-			this.totalFloors += roll;
+			floors += 1+d6.nextInt(6);
 		}
-		
+		setTotalFloors(floors);
 	}
 	
 	//roll a d10 if you get a 7 or higher your network will have a branch repeat until you stop rolling a 7 or higher
@@ -76,7 +76,7 @@ public class Network {
 	}
 	
 	private Floor[] generateBranches() {
-		Floor [] branches = new Floor [getTotalBranches()];
+		Floor [] branches = new Floor [getTotalBranches()+1];
 		int remainingFloors = getTotalFloors();
 		
 		for (int branch = 0; branch <= this.totalBranches; branch++) {
@@ -84,7 +84,24 @@ public class Network {
 				branches[branch] = fillBranch(remainingFloors); 
 				break;
 			}
+			
+			Random rand = new Random();
+			int floorsUsed = 1+rand.nextInt(remainingFloors+1-(this.totalBranches-branch));
+			
+			remainingFloors-=floorsUsed;
+			branches[branch] = fillBranch(floorsUsed);
 		}
+		
+		/*
+		//Tester to iterate over the branches
+			for(Floor floor: branches) {
+			while(floor.next()!=null) {
+				System.out.println("Current Floor Number: " + floor.getFloorNumber());
+				floor = floor.next();
+			}
+			System.out.println("Next Branch");
+		}
+		*/
 		return branches;
 	}
 	
@@ -101,19 +118,18 @@ public class Network {
 			currentFloor = nextFloor;
 		}
 		
-		
-		currentFloor = startingFloor;
-		while(currentFloor.next() != null) {
-			if(currentFloor.next()!= null) {
-				System.out.println("Generated Floor: " + currentFloor.getFloorNumber());
-				currentFloor = currentFloor.next();
-			}
-		}
-		
 		return startingFloor;
+	}
+	
+	private int[] getFloorCounts(Floor[] branches) {
+		int floorCounts[] = new int [branches.length];
+		return null;
 	}
 
 	public void generateNetwork() {
 		Floor [] branches = generateBranches();
+		int branchesFloorCount[] = getFloorCounts(branches);
 	}
+
+
 }
