@@ -1,7 +1,5 @@
 package com.hoang.ryan.choombah_bot.components;
-import java.util.Objects;
 import java.util.Random;
-import java.util.TreeMap;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -10,7 +8,7 @@ public class Network {
 	private int totalFloors;
 	private int totalBranches;
 	
-	private TreeMap<Integer, Floor> network= new TreeMap(); //probably change this to a tree
+	private Floor network;
 	
 	public Network(String difficultyRating) {
 		setDifficultyRating(difficultyRating);
@@ -75,43 +73,61 @@ public class Network {
 		}
 	}
 	
+	public Floor getLobbyFloor() {
+		return network;
+	}
+
+	private void setNetwork(Floor network) {
+		this.network = network;
+	}
+
+	
+	//Separates the total floors into branches indicated by totalBranches then fills each branch with a random amount of floors such that the it adds up to total floors
 	private Floor[] generateBranches() {
 		Floor [] branches = new Floor [getTotalBranches()+1];
 		int remainingFloors = getTotalFloors();
 		
+		Random rand = new Random();
 		for (int branch = 0; branch <= this.totalBranches; branch++) {
 			if( branch == this.totalBranches) {
 				branches[branch] = fillBranch(remainingFloors); 
 				break;
 			}
 			
-			Random rand = new Random();
-			int floorsUsed = 1+rand.nextInt(remainingFloors+1-(this.totalBranches-branch));
-			
-			remainingFloors-=floorsUsed;
-			branches[branch] = fillBranch(floorsUsed);
+			else if (branch == 0) {
+				System.out.println("Adding floors to main branch");
+				int floorsUsed = 3+rand.nextInt(remainingFloors-(totalBranches+3));
+				remainingFloors-=floorsUsed;
+				branches[branch] = fillBranch(floorsUsed);
+			}
+			else {
+				int floorsUsed = 1+rand.nextInt(remainingFloors-(this.totalBranches-branch));
+				remainingFloors-=floorsUsed;
+				branches[branch] = fillBranch(floorsUsed);
+			}
 		}
 		
-		/*
+		
 		//Tester to iterate over the branches
-			for(Floor floor: branches) {
-			while(floor.next()!=null) {
+		/*for(Floor floor: branches) {
+			while(floor!=null) {
 				System.out.println("Current Floor Number: " + floor.getFloorNumber());
 				floor = floor.next();
 			}
 			System.out.println("Next Branch");
-		}
-		*/
+		}*/
+			
 		return branches;
 	}
 	
+	//Fills each branch with floors such that the total floor count is used
 	private Floor fillBranch(int floors) {
 		Floor currentFloor = new Floor();
 		currentFloor.setFloorNumber(1);
 		
 		Floor startingFloor = currentFloor;
 		
-		for (int floorNumber = 2; floorNumber <= floors+1; floorNumber++) {
+		for (int floorNumber = 2; floorNumber <= floors; floorNumber++) {
 			Floor nextFloor = new Floor();
 			nextFloor.setFloorNumber(floorNumber);		
 			currentFloor.setNextFloor(nextFloor);
@@ -121,15 +137,79 @@ public class Network {
 		return startingFloor;
 	}
 	
+	//retrieves the number of floors each branch has as an array where the index matches the index of the branch
 	private int[] getFloorCounts(Floor[] branches) {
 		int floorCounts[] = new int [branches.length];
-		return null;
+		
+		Floor[] traverser = branches.clone();
+		
+		for(int traverserIndex = 0; traverserIndex < traverser.length; traverserIndex++) {
+			int branchLength = 0;
+			while(traverser[traverserIndex]!=null) {
+				branchLength++;
+				traverser[traverserIndex] = traverser[traverserIndex].next();
+			}
+			floorCounts[traverserIndex] = branchLength;
+		}
+		
+		return floorCounts;
+	}
+	
+	//Locates the virus branch by obtain the index with largest integer
+	private int locateVirusBranch(int[] branches) {
+		int mainBranchCount=0;
+		int index =0;
+		
+		for(int branch = 0 ; branch <branches.length; branch++) {
+			if (branches[branch] > mainBranchCount){
+				index = branch;
+				mainBranchCount = branches[branch];
+			}
+ 		}
+		
+		return index;
 	}
 
+	//connects the individual branches to form the network
+	private Floor connectBranches(Floor[] branches, int[] branchesFloorCount) {
+		Floor network = branches[0];
+		
+		for(int branchPtr = 1; branchPtr<branches.length;branchPtr++) {
+			
+		}
+		
+		return network;
+	}
+	
+	private void traverseNetwork() {
+		Floor currentFloor = getLobbyFloor();
+		
+		System.out.println("Beginning network traversal");
+		while(currentFloor!=null) {
+			System.out.println("Current Floor" + currentFloor.getFloorNumber());
+			currentFloor=currentFloor.next();
+		}
+		
+	}
+	
 	public void generateNetwork() {
 		Floor [] branches = generateBranches();
 		int branchesFloorCount[] = getFloorCounts(branches);
+		int virusBranch = locateVirusBranch(branchesFloorCount);
+		//System.out.println("Main Branch is located at: " + mainBranch);
+		
+		for(Floor floor: branches) {
+			while(floor!=null) {
+				System.out.println("Current Floor Number: " + floor.getFloorNumber());
+				floor = floor.next();
+			}
+			System.out.println("Next Branch");
+		}
+		
+		Floor network = connectBranches(branches, branchesFloorCount);
+	
+		setNetwork(network);
+		
+		//traverseNetwork();
 	}
-
-
 }
