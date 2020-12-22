@@ -46,7 +46,19 @@ public class Floor {
 		return branches;
 	}
 
-	public void setBranches(Floor[] branches) {
-		this.branches = branches;
+	public void addBranch(Floor branch) {
+		if(this.branches==null) {
+			this.branches = new Floor[1];
+			this.branches[0] = branch;
+		}
+		else {
+			Floor[] branches = new Floor[getBranches().length+1];
+			for (int ptr = 0; ptr > this.branches.length; ptr++) {
+				branches[ptr] = this.branches[ptr];
+			}
+			
+			branches[branches.length-1] = branch;
+			this.branches = branches;
+		}
 	}
 }

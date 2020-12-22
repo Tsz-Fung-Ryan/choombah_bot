@@ -95,7 +95,6 @@ public class Network {
 			}
 			
 			else if (branch == 0) {
-				System.out.println("Adding floors to main branch");
 				int floorsUsed = 3+rand.nextInt(remainingFloors-(totalBranches+3));
 				remainingFloors-=floorsUsed;
 				branches[branch] = fillBranch(floorsUsed);
@@ -175,23 +174,60 @@ public class Network {
 		Floor network = branches[0];
 		
 		for(int branchPtr = 1; branchPtr<branches.length;branchPtr++) {
+			Random rand = new Random();
 			
+			int branchOffPoint = 3+rand.nextInt(branchesFloorCount[0]-3);
+			
+			System.out.println("Add the branch at floor: " + branchOffPoint);
+			toMainBranch(branches[0],branchOffPoint, branches[branchPtr]);
 		}
 		
 		return network;
 	}
 	
+	//add the branch on the branchOffPoint's floor to the main branch
+	private void toMainBranch(Floor mainBranch, int branchOffPoint, Floor branch) {
+		Floor startingFloor = mainBranch;
+		
+		for (int floor = 1; floor <branchOffPoint; floor++) {
+			mainBranch = mainBranch.next();
+		}
+		
+		mainBranch.addBranch(branch);
+		
+		mainBranch = startingFloor;
+	}
+
 	private void traverseNetwork() {
 		Floor currentFloor = getLobbyFloor();
 		
 		System.out.println("Beginning network traversal");
+		
 		while(currentFloor!=null) {
 			System.out.println("Current Floor" + currentFloor.getFloorNumber());
+			
+			if(currentFloor.getBranches()!= null) {
+				traverseBranches(currentFloor.getBranches());
+			}
+			
 			currentFloor=currentFloor.next();
 		}
 		
 	}
 	
+	private void traverseBranches(Floor[] branches) {
+		
+		for (Floor branch : branches) {
+			System.out.println("New Branch");
+			while(branch!=null) {
+				System.out.println("Branch Floor Number: " + branch.getFloorNumber());
+				branch = branch.next();
+			}
+			System.out.println("End of Branch");
+		}
+		
+	}
+
 	public void generateNetwork() {
 		Floor [] branches = generateBranches();
 		int branchesFloorCount[] = getFloorCounts(branches);
@@ -205,11 +241,11 @@ public class Network {
 			}
 			System.out.println("Next Branch");
 		}
-		
+	
 		Floor network = connectBranches(branches, branchesFloorCount);
 	
 		setNetwork(network);
 		
-		//traverseNetwork();
+		traverseNetwork();
 	}
 }
