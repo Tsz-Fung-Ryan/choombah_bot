@@ -1,6 +1,6 @@
 package com.hoang.ryan.choombah_bot;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 

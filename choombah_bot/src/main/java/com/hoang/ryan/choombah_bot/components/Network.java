@@ -72,7 +72,7 @@ public class Network {
 			this.totalBranches++;
 			
 			//exit case as a network cannot have more branches then floors we will set the branches back to 0
-			if(this.totalBranches>=this.totalFloors) {
+			if(this.totalBranches>=this.totalFloors-3) {
 				this.totalBranches = 0;
 				return;
 			}
@@ -101,14 +101,29 @@ public class Network {
 			}
 			
 			else if (branch == 0) {
-				int floorsUsed = 3+rand.nextInt(remainingFloors-(totalBranches+3));
-				remainingFloors-=floorsUsed;
-				branches[branch] = fillBranch(floorsUsed);
+				if(remainingFloors-(totalBranches+3)==0) {
+					int floorsUsed = 3;
+					remainingFloors-=floorsUsed;
+					branches[branch] = fillBranch(floorsUsed);
+				}
+				else {
+					int floorsUsed = 3+rand.nextInt(remainingFloors-(totalBranches+3));
+					remainingFloors-=floorsUsed;
+					branches[branch] = fillBranch(floorsUsed);
+				}
 			}
+			
 			else {
-				int floorsUsed = 1+rand.nextInt(remainingFloors-(this.totalBranches-branch));
-				remainingFloors-=floorsUsed;
-				branches[branch] = fillBranch(floorsUsed);
+				if(remainingFloors-(this.totalBranches-branch) == 0) {
+					int floorsUsed = 1;
+					remainingFloors -= floorsUsed;
+					branches[branch]=fillBranch(floorsUsed);
+				}
+				else {
+					int floorsUsed = 1+rand.nextInt(remainingFloors-(this.totalBranches-branch));
+					remainingFloors-=floorsUsed;
+					branches[branch] = fillBranch(floorsUsed);
+				}
 			}
 		}
 		
@@ -182,10 +197,14 @@ public class Network {
 		for(int branchPtr = 1; branchPtr<branches.length;branchPtr++) {
 			Random rand = new Random();
 			
-			int branchOffPoint = 3+rand.nextInt(branchesFloorCount[0]-3);
-			
-			//System.out.println("Add the branch at floor: " + branchOffPoint);
-			toMainBranch(branches[0],branchOffPoint, branches[branchPtr]);
+			if(branchesFloorCount[0]-3 == 0) {
+				int branchOffPoint = 3;
+				toMainBranch(branches[0],branchOffPoint, branches[branchPtr]);
+			}
+			else {
+				int branchOffPoint = 3+rand.nextInt(branchesFloorCount[0]-3);
+				toMainBranch(branches[0],branchOffPoint, branches[branchPtr]);
+			}
 		}
 		
 		return network;
