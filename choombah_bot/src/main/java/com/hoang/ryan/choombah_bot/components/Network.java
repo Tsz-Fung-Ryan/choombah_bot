@@ -10,6 +10,12 @@ public class Network {
 	
 	private Floor network;
 	
+	public Network() {
+		rollFloorCount();
+		rollBranchCount();
+		generateNetwork();
+	}
+	
 	public Network(String difficultyRating) {
 		setDifficultyRating(difficultyRating);
 		rollFloorCount();
@@ -178,7 +184,7 @@ public class Network {
 			
 			int branchOffPoint = 3+rand.nextInt(branchesFloorCount[0]-3);
 			
-			System.out.println("Add the branch at floor: " + branchOffPoint);
+			//System.out.println("Add the branch at floor: " + branchOffPoint);
 			toMainBranch(branches[0],branchOffPoint, branches[branchPtr]);
 		}
 		
@@ -232,15 +238,6 @@ public class Network {
 		Floor [] branches = generateBranches();
 		int branchesFloorCount[] = getFloorCounts(branches);
 		int virusBranch = locateVirusBranch(branchesFloorCount);
-		//System.out.println("Main Branch is located at: " + mainBranch);
-		
-		for(Floor floor: branches) {
-			while(floor!=null) {
-				System.out.println("Current Floor Number: " + floor.getFloorNumber());
-				floor = floor.next();
-			}
-			System.out.println("Next Branch");
-		}
 	
 		Floor network = connectBranches(branches, branchesFloorCount);
 	
