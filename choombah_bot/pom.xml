@@ -28,7 +28,15 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-		</dependency>	
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.javacord</groupId>
+			<artifactId>javacord</artifactId>
+			<version>3.1.2</version>
+			<type>pom</type>
+		</dependency>
 	</dependencies>
 
 	<build>
