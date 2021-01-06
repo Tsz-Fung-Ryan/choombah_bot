@@ -240,7 +240,7 @@ public class Network {
 		
 	}
 	
-	private void traverseBranches(Floor[] branches) {
+	public void traverseBranches(Floor[] branches) {
 		
 		for (Floor branch : branches) {
 			System.out.println("New Branch");
@@ -261,7 +261,5 @@ public class Network {
 		Floor network = connectBranches(branches, branchesFloorCount);
 	
 		setNetwork(network);
-		
-		traverseNetwork();
 	}
 }
