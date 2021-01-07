@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -13,11 +14,18 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>choombah_bot</name>
 	<description>Project to make a network initializer and a discord bot to support cyberpunk red campaigns</description>
-
+	
 	<properties>
 		<java.version>11</java.version>
 	</properties>
-
+	
+	<repositories>
+		<repository>
+  			<id>jitpack.io</id>
+  			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -41,11 +49,18 @@
 			<groupId>javax.annotation</groupId>
 			<artifactId>javax.annotation-api</artifactId>
 		</dependency>
+			
 		<dependency>
-			<groupId>net.kautler</groupId>
-			<artifactId>command-framework</artifactId>
-			<version>0.3.0</version>
+  			<groupId>de.btobastian.sdcf4j</groupId>
+  			<artifactId>sdcf4j-core</artifactId>
+  			<version>1.0.10</version>
 		</dependency>
+		
+		<dependency>
+  			<groupId>de.btobastian.sdcf4j</groupId>
+  			<artifactId>sdcf4j-javacord</artifactId>
+  			<version>1.0.10</version>
+		</dependency>	
 	</dependencies>
 
 	<build>
