@@ -142,6 +142,7 @@ public class Network {
 	
 	//Fills each branch with floors such that the total floor count is used
 	private Floor fillBranch(int floors) {
+		
 		Floor currentFloor = new Floor();
 		currentFloor.setFloorNumber(1);
 		

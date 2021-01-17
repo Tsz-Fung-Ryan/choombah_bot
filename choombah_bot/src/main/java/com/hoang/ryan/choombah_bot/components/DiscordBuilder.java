@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.hoang.ryan.choombah_bot.components.commands.TestCommand;
+import com.hoang.ryan.choombah_bot.components.commands.AboutCommand;
+import com.hoang.ryan.choombah_bot.components.commands.GenerateNetworkCommand;
 
 import de.btobastian.sdcf4j.CommandHandler;
 import de.btobastian.sdcf4j.handler.JavacordHandler;
@@ -20,6 +21,9 @@ public class DiscordBuilder {
 	DiscordApi api;
 	
 	final String token;
+	
+	//@Autowired
+	//CommandHandler cmdHandler;
 	
 	@Autowired
 	public DiscordBuilder(@Value("${discord.token}") String token) {
@@ -33,14 +37,18 @@ public class DiscordBuilder {
 				.login()
 				.join();
 		
-		System.out.println("Bot is running");
-		
 		System.out.println("Invite Link: " + api.createBotInvite());
 		
 		CommandHandler cmdHandler = new JavacordHandler(api);
-		cmdHandler.registerCommand(new TestCommand());
+		addCommands(cmdHandler);
+		
 	}
 	
+	private void addCommands(CommandHandler cmdHandler) {
+		cmdHandler.registerCommand(new GenerateNetworkCommand());
+		cmdHandler.registerCommand(new AboutCommand());
+	}
+
 	private void disposeBot(DiscordApi api) {
 		api.disconnect();
 	}
