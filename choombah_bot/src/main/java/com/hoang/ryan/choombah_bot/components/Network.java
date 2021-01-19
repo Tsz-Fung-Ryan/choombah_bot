@@ -44,6 +44,8 @@ public class Network {
 
 	public void setTotalFloors(int totalFloors) {
 		this.totalFloors = totalFloors;
+		if(this.totalBranches>=this.totalFloors-3) 
+			rollBranchCount();
 	}
 
 	public int getTotalBranches() {
@@ -55,7 +57,7 @@ public class Network {
 	}
 	
 	//rolls 3d6 to obtain the number of floors in the network
-	private void rollFloorCount() {
+	public void rollFloorCount() {
 		Random d6 = new Random();
 		int floors=0;
 		for (int roll = 0; roll < 3 ; roll++) {
@@ -65,7 +67,7 @@ public class Network {
 	}
 	
 	//roll a d10 if you get a 7 or higher your network will have a branch repeat until you stop rolling a 7 or higher
-	private void rollBranchCount() {
+	public void rollBranchCount() {
 		Random d10 = new Random();
 		
 		while(1+d10.nextInt(10) >=7) {
@@ -224,33 +226,35 @@ public class Network {
 		mainBranch = startingFloor;
 	}
 
-	private void traverseNetwork() {
+	public String traverse() {
 		Floor currentFloor = getLobbyFloor();
-		
+		String output = "";
 		System.out.println("Beginning network traversal");
 		
 		while(currentFloor!=null) {
-			System.out.println("Current Floor" + currentFloor.getFloorNumber());
+			output+="Floor" + currentFloor.getFloorNumber() + "\n";
 			
 			if(currentFloor.getBranches()!= null) {
-				traverseBranches(currentFloor.getBranches());
+				output+=traverseBranches(currentFloor.getBranches());
 			}
 			
 			currentFloor=currentFloor.next();
 		}
+		return output;
 		
 	}
 	
-	public void traverseBranches(Floor[] branches) {
-		
+	private String traverseBranches(Floor[] branches) {
+		String output = "";
 		for (Floor branch : branches) {
-			System.out.println("New Branch");
+			output+="New Branch" + "\n";
 			while(branch!=null) {
-				System.out.println("Branch Floor Number: " + branch.getFloorNumber());
+				output+="\tBranch Floor Number: " + branch.getFloorNumber() + "\n";
 				branch = branch.next();
 			}
-			System.out.println("End of Branch");
+			output+= "End of Branch \n";
 		}
+		return output;
 		
 	}
 
