@@ -1,22 +1,20 @@
-package com.hoang.ryan.choombah_bot.components.commands;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+package com.hoang.ryan.choombah_bot.commands;
 
 import com.hoang.ryan.choombah_bot.components.Network;
 
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
 
-@Service
 public class GenerateNetworkCommand implements CommandExecutor {
 
-	@Autowired
 	Network network;
 	
+	public GenerateNetworkCommand(Network network) {
+		this.network=network;
+	}
+
 	@Command(aliases = {"!generate"}, description = "generates an example network", usage = "!generate [3-18] [0-15]")
 	public String generateCommand(String [] args) {
-
 		switch(args.length) {
 		case 0:
 			network = new Network();

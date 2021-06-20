@@ -2,7 +2,6 @@ package com.hoang.ryan.choombah_bot.components;
 import java.util.Random;
 import org.springframework.stereotype.Component;
 
-@Component
 public class Network {
 	private String difficultyRating;
 	private int totalFloors;

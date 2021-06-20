@@ -1,4 +1,4 @@
-package com.hoang.ryan.choombah_bot;
+package com.hoang.ryan.choombah_bot.components;
 
 import static org.junit.Assert.*;
 
