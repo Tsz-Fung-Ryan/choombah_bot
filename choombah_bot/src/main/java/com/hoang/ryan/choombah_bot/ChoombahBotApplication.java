@@ -10,9 +10,6 @@ import com.hoang.ryan.choombah_bot.config.BotConfig;
 @SpringBootApplication
 public class ChoombahBotApplication 
 {
-	@Autowired
-	DiscordBuilder bot;
-	
     public static void main(String[] args){
     	SpringApplication.run(BotConfig.class, args);
     }

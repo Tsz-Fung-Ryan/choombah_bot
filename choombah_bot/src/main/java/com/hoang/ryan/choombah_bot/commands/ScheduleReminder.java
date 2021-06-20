@@ -8,6 +8,6 @@ import de.btobastian.sdcf4j.CommandExecutor;
 public class ScheduleReminder implements CommandExecutor {
 	
 	public void reminder(TextChannel channel) {
-		new MessageBuilder().append("@everyone session starts in a hour").send(channel);
+		new MessageBuilder().append("everyone session starts in a hour").send(channel);
 	}
 }
