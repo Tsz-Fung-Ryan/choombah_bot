@@ -1,4 +1,4 @@
-package com.hoang.ryan.choombah_bot.components;
+package com.hoang.ryan.choombah_bot.components.network;
 
 import static org.junit.Assert.*;
 
@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.hoang.ryan.choombah_bot.components.Network;
+import com.hoang.ryan.choombah_bot.components.network.Network;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

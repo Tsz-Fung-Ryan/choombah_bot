@@ -1,11 +1,13 @@
-package com.hoang.ryan.choombah_bot.components;
+package com.hoang.ryan.choombah_bot.components.network;
+import java.util.Map;
 import java.util.Random;
-import org.springframework.stereotype.Component;
 
 public class Network {
 	private String difficultyRating;
 	private int totalFloors;
 	private int totalBranches;
+	
+	private static Map<Integer, String> LOBBYVALUES;
 	
 	private Floor network;
 	
@@ -14,7 +16,7 @@ public class Network {
 		rollBranchCount();
 		generateNetwork();
 	}
-	
+
 	public Network(String difficultyRating) {
 		setDifficultyRating(difficultyRating);
 		rollFloorCount();
@@ -29,6 +31,16 @@ public class Network {
 		generateNetwork();
 	}
 
+	public void initTables(Map<Integer,String> lobby) {
+		LOBBYVALUES=lobby;
+	}
+	
+	public void testLobby() {
+		LOBBYVALUES.forEach((key,value) ->{
+			System.out.println("Lobby " + key + ": " + value);
+		});
+	}
+	
 	public String getDifficultyRating() {
 		return difficultyRating;
 	}

@@ -1,4 +1,4 @@
-package com.hoang.ryan.choombah_bot.components;
+package com.hoang.ryan.choombah_bot.components.network;
 
 import org.springframework.stereotype.Component;
 

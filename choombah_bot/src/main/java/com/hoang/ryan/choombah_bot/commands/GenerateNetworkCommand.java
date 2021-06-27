@@ -1,6 +1,6 @@
 package com.hoang.ryan.choombah_bot.commands;
 
-import com.hoang.ryan.choombah_bot.components.Network;
+import com.hoang.ryan.choombah_bot.components.network.Network;
 
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
@@ -9,8 +9,7 @@ public class GenerateNetworkCommand implements CommandExecutor {
 
 	Network network;
 	
-	public GenerateNetworkCommand(Network network) {
-		this.network=network;
+	public GenerateNetworkCommand() {
 	}
 
 	@Command(aliases = {"!generate"}, description = "generates an example network", usage = "!generate [3-18] [0-15]")

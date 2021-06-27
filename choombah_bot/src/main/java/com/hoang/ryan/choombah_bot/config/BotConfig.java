@@ -1,24 +1,23 @@
 package com.hoang.ryan.choombah_bot.config;
 
-import javax.annotation.PostConstruct;
-
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.channel.TextChannel;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import com.hoang.ryan.choombah_bot.commands.AboutCommand;
 import com.hoang.ryan.choombah_bot.commands.GenerateNetworkCommand;
 import com.hoang.ryan.choombah_bot.commands.ScheduleReminder;
-import com.hoang.ryan.choombah_bot.components.Network;
 
 import de.btobastian.sdcf4j.CommandHandler;
 import de.btobastian.sdcf4j.handler.JavacordHandler;
 
 @Configuration
+@Import({NetworkConfig.class})
 public class BotConfig {
 
 	@Value("${discord.token}")
@@ -28,11 +27,6 @@ public class BotConfig {
 	String channelReminderId;
 	
 	boolean flip=true;
-
-	@Bean
-	public Network network() {
-		return new Network();
-	}
 
 	@Bean
 	DiscordApi discordApi() {
@@ -50,7 +44,7 @@ public class BotConfig {
 		addCommands(cmdHandler);
 		return cmdHandler;
 	}
-
+	
 	@Scheduled(cron = "${reminder.cron}")
 	public void scheduledReminder(String channelReminderId) {
 		if(flip) {
@@ -61,7 +55,7 @@ public class BotConfig {
 	}
 
 	private void addCommands(CommandHandler cmdHandler) {
-		cmdHandler.registerCommand(new GenerateNetworkCommand(network()));
+		cmdHandler.registerCommand(new GenerateNetworkCommand());
 		cmdHandler.registerCommand(new AboutCommand());
 	}
 }
