@@ -19,6 +19,9 @@ public class NetworkConfig {
 	@Value("#{${network.lobby.floors}}")
 	Map<Integer, String> lobbyValues;
 	
+	@Value("#{${network.floors}}")
+	Map<String, Map<Integer, String>> floorValues;
+	
 	@Bean
 	public Network network() {
 		return new Network();
@@ -26,7 +29,14 @@ public class NetworkConfig {
 	
 	@Bean
 	public void loadTables() {
-		network().initTables(lobbyValues);
-		network().testLobby();
+	}
+	
+	@Bean
+	public void testFloorTable() {
+		floorValues.forEach((type, diceRoll) -> {
+			diceRoll.forEach((key, value) -> {
+				System.out.println(type + " " + key + ": " + value);
+			});
+		});
 	}
 }
