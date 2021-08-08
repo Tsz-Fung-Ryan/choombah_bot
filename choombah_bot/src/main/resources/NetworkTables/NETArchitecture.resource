@@ -43,5 +43,23 @@ network.floors={\
 		16: "Asp" ,\
 		17: "Raven x3", \
 		18: "Liche, Raven" \
+	},\
+		Standard : {\
+		3: "Kraken", \
+		4: "Hellhound, Scorpion", \
+		5: "Hellhound, Killer", \
+		6: "Raven", \
+		7: "Sabertooth", \
+		8: "Hellhound", \
+		9: "Password DV10",\
+		10: "File DV10", \
+		11: "Control Node DV10", \
+		12: "Password DV10", \
+		13: "Killer", \
+		14: "Liche", \
+		15: "Dragon", \
+		16: "Asp, Raven" ,\
+		17: "Dragon, Wisp", \
+		18: "Giant" \
 	}\
 }
